@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PasswordWindow = FamilyTree.Windows.PasswordWindow;
+using PersonWindow = FamilyTree.Windows.PersonWindow;
 
 namespace FamilyTree
 {
@@ -22,6 +24,11 @@ namespace FamilyTree
     {
         public MainWindow()
         {
+            //PasswordWindow passwordWindow = new PasswordWindow();
+            //passwordWindow.ShowDialog();
+            ApplicationLogic.OperationsWithDataBase.PersonTable personTable = new ApplicationLogic.OperationsWithDataBase.PersonTable();
+            PersonWindow personWindow = new PersonWindow(personTable.ReturnPersonInFullName("dd"),0);
+            personWindow.ShowDialog();
             InitializeComponent();
         }
     }
