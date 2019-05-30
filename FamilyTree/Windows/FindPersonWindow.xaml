@@ -1,0 +1,110 @@
+﻿<Window x:Class="FamilyTree.Windows.FindPersonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FamilyTree.Windows"
+        xmlns:bind="clr-namespace:FamilyTree.ModelView"
+        mc:Ignorable="d"
+        Title="Поиск" Height="373.375" Width="705.264">
+    <Window.Resources>
+        <bind:BindingProxy x:Key="proxy"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="Фамилия"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1"
+                           Text="Имя"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="2"
+                           Text="Отчество"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         Text="{Binding SecondName, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="5"/>
+                <TextBox Grid.Column="1"
+                         Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="5"/>
+                <TextBox Grid.Column="2"
+                         Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="5"/>
+            </Grid>
+            <Button Grid.Row="3"
+                    Command="{Binding SendDataCommand}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Поиск"/>
+        </Grid>
+        <DataGrid Grid.Row="2"
+                  x:Name="dataGrid"
+                  AutoGenerateColumns="False"
+                  ColumnWidth="Auto"
+                  ItemsSource="{Binding ReturnSearchingResult}"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <!--<DataGrid.Resources>
+                <bind:BindingProxy x:Key="proxy" Data="{Binding}" />
+            </DataGrid.Resources>-->
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding SecondName}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Фамилия" HorizontalAlignment="Center"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding FirstName}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Имя" HorizontalAlignment="Center"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Patronymic}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Отчество" HorizontalAlignment="Center"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding DateOfBirth}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Дата рождения" HorizontalAlignment="Center"/>
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate >
+                            <Button Command="{Binding Path=DataContext.GoToProfileCommand,       
+                                            RelativeSource= {RelativeSource FindAncestor,
+                                            AncestorType={x:Type DataGrid}}}"
+                                    Content="Перейти к профилю"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

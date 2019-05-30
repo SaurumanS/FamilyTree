@@ -7,14 +7,32 @@
         xmlns:formatter="clr-manespace:FamilyTree.ModelView."
         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="PersonWindow" Height="450" Width="800">
+        Title="{Binding Title}" Height="450" Width="800">
+    
     <Grid>
+        
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="2*"/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
+        <Menu Grid.Row="0">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Довавить профиль"/>
+                <MenuItem Header="Открыть профиль"/>
+                <MenuItem Header="Изменить профиль"
+                          IsEnabled="{Binding ChangeIsEnable}"/>
+                <Separator/>
+                <MenuItem Command="{Binding CloseWindowCommand}" 
+                          Header="Закрыть"/>
+            </MenuItem>
+            <MenuItem Header="Правка"/>
+            <MenuItem Header="Просмотр">
+                <MenuItem Header="Открыть дерево"/>
+                <MenuItem Header="Просмотр фото"/>
+            </MenuItem>
+        </Menu>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Image Source="{Binding PhotoPath}" Width="187"/>
             <Grid Width="603">
                 <Grid.RowDefinitions>
@@ -30,42 +48,51 @@
                 <StackPanel Grid.Row="0"
                             Orientation="Horizontal">
                     <TextBlock Text="Имя: "/>
-                    <TextBlock Text="{Binding FullName}"/>
+                    <TextBlock  TextWrapping="Wrap" 
+                                Text="{Binding FullName}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1"
                             Orientation="Horizontal">
                     <TextBlock Text="Пол: "/>
-                    <TextBlock Text="{Binding Gender}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Gender}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="2"
                             Orientation="Horizontal">
                     <TextBlock Text="Дата Рождения: "/>
-                    <TextBlock Text="{Binding DateOfBirth}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding DateOfBirth}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="3"
                             Orientation="Horizontal">
                     <TextBlock Text="Дата Смерти: "/>
-                    <TextBlock Text="{Binding DateOfDeath}"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding DateOfDeath}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="4"
                             Orientation="Horizontal">
                     <TextBlock Text="Мать: "/>
-                    <TextBlock Text="{Binding Mother}"/>
+                    <TextBlock x:Name="textBoxMother" 
+                               TextWrapping="Wrap" 
+                               Text="{Binding Mother}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="5"
                             Orientation="Horizontal">
                     <TextBlock Text="Отец: "/>
-                    <TextBlock Text="{Binding Father}"/>
+                    <TextBlock x:Name="textBoxFather" 
+                               TextWrapping="Wrap" 
+                               Text="{Binding Father}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="6"
                             Orientation="Horizontal">
                     <TextBlock Text="{Binding WifeOrHusband}"/>
-                    <TextBlock Text="{Binding Spouse}"/>
+                    <TextBlock x:Name="textBoxSpouse" 
+                               TextWrapping="Wrap" 
+                               Text="{Binding Spouse}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="7"
                             Orientation="Horizontal">
                     <TextBlock Text="Дети: "/>
-                    <TextBlock Text="{Binding Children}"/>
+                    <TextBlock x:Name="textBoxChildren" 
+                               TextWrapping="Wrap" 
+                               Text="{Binding Children}"/>
                 </StackPanel>
             </Grid>
         </StackPanel>
@@ -75,7 +102,11 @@
                  SpellCheck.IsEnabled="True"
                  Language="ru-ru"
                  VerticalScrollBarVisibility="Auto"/>-->
-        <RichTextBox x:Name="_richTextBox" Grid.Row="1"/>
+        <RichTextBox x:Name="_richTextBox" 
+                     Grid.Row="2"
+                     SpellCheck.IsEnabled="True"
+                     Language="ru-ru"
+                     IsReadOnly="True"/>
 
     </Grid>
 </Window>

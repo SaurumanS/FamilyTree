@@ -26,9 +26,13 @@ namespace FamilyTree
         {
             //PasswordWindow passwordWindow = new PasswordWindow();
             //passwordWindow.ShowDialog();
-            ApplicationLogic.OperationsWithDataBase.PersonTable personTable = new ApplicationLogic.OperationsWithDataBase.PersonTable();
-            PersonWindow personWindow = new PersonWindow(personTable.ReturnPersonInFullName("dd"),0);
-            personWindow.ShowDialog();
+            //ApplicationLogic.OperationsWithDataBase.PersonTable personTable = new ApplicationLogic.OperationsWithDataBase.PersonTable();
+            //personTable.ReturnSearchingResult("Салий", "", "");
+            //PersonWindow personWindow = new PersonWindow(personTable.ReturnPersonInFullName("Saliy  Alex Romanovyich"), 1);
+            //personWindow.ShowDialog();
+
+            Windows.FindPersonWindow findPersonWindow = new Windows.FindPersonWindow();
+            findPersonWindow.ShowDialog();
             InitializeComponent();
         }
     }

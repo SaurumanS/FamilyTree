@@ -13,6 +13,9 @@ namespace FamilyTree.ModelView
         public PersonWindowModelView(ApplicationLogic.DataBaseTableInstances.Person person, int isAdministrator)
         {
             FullName = String.Join(" ", person.FirstName, person.SecondName, person.Patronymic);
+            Title = FullName;
+            if (isAdministrator == 1) ChangeIsEnable = true;
+            else ChangeIsEnable = false;
             PhotoPath = person.PathPhoto;
             DateOfBirth = person.DateOfBirth;
             DateOfDeath = person.DateOfDeath;
@@ -32,6 +35,18 @@ namespace FamilyTree.ModelView
             Children = String.Join(",", person.Sons, person.Dauthers);
             Description = person.Description;
         }
+        public Action CloseAction { get; set; } // Действие на закрытие окна
+        private RelayCommand closeWindowCommand;
+        public RelayCommand CloseWindowCommand
+        {
+            get
+            {
+                return closeWindowCommand ??
+                       (closeWindowCommand = new RelayCommand(obj => CloseAction()));
+            }
+        }
+        public string Title { get; set; }
+        public bool ChangeIsEnable { get; set; }
         private string fullName;
         private string photoPath;
         private string dateOfBirth;
@@ -98,7 +113,11 @@ namespace FamilyTree.ModelView
         }
         public string Mother
         {
-            get { return mother; }
+            get
+            {
+
+                return mother;
+            }
             set
             {
                 mother = value;

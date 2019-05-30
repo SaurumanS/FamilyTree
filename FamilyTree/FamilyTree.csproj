@@ -88,10 +88,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ModelView\MyFormatter.cs" />
+    <Compile Include="ModelView\BindingProxy.cs" />
+    <Compile Include="ModelView\FindPersonWindowModelView.cs" />
     <Compile Include="ModelView\PasswordWindowModelView.cs" />
     <Compile Include="ModelView\PersonWindowModelView.cs" />
     <Compile Include="ModelView\RelayCommand.cs" />
+    <Compile Include="Windows\BindingProxy.cs" />
+    <Compile Include="Windows\FindPersonWindow.xaml.cs">
+      <DependentUpon>FindPersonWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\PasswordWindow.xaml.cs">
       <DependentUpon>PasswordWindow.xaml</DependentUpon>
     </Compile>
@@ -110,6 +115,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\FindPersonWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\PasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
