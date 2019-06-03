@@ -31,8 +31,10 @@ namespace FamilyTree
             //PersonWindow personWindow = new PersonWindow(personTable.ReturnPersonInFullName("Saliy  Alex Romanovyich"), 1);
             //personWindow.ShowDialog();
 
-            Windows.FindPersonWindow findPersonWindow = new Windows.FindPersonWindow();
-            findPersonWindow.ShowDialog();
+            //Windows.FindPersonWindow findPersonWindow = new Windows.FindPersonWindow();
+            //findPersonWindow.ShowDialog();
+            Windows.AddOrEditInfoAboutPersonWindow addOrEdit = new Windows.AddOrEditInfoAboutPersonWindow();
+            addOrEdit.ShowDialog();
             InitializeComponent();
         }
     }

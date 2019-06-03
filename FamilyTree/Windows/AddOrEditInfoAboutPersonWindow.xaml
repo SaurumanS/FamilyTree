@@ -1,0 +1,323 @@
+﻿<Window x:Class="FamilyTree.Windows.AddOrEditInfoAboutPersonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FamilyTree.Windows"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="450" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           Text="Фамилия"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1"
+                           Text="Имя"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="2"
+                           Text="Отчество"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         Text="{Binding SecondName, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="5"/>
+                <TextBox Grid.Column="1"
+                         Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="5"/>
+                <TextBox Grid.Column="2"
+                         Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"
+                         Margin="5"/>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Дата рождения"/>
+            <DatePicker Grid.Column="1" 
+                        IsDropDownOpen="False" 
+                        Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDateFormat="Short"/>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Дата смерти"/>
+            <DatePicker Grid.Column="1" 
+                        IsDropDownOpen="False" 
+                        Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDateFormat="Short"/>
+        </Grid>
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Пол"/>
+            <ComboBox Grid.Column="1"
+                      SelectedItem="{Binding TransitionalGender}">
+                <TextBlock Text="Мужской"/>
+                <TextBlock Text="Женский"/>
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Отец (ФИО)"/>
+            <StackPanel Grid.Column="1"
+                        Visibility="{Binding Path=PanelFatherAccountIsNot, Converter={StaticResource BoolToVisibility} }">
+                <TextBox Text="{Binding Father, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <Grid Grid.Column="1"
+                        Visibility="{Binding Path=PanelFatherAccountIs, Converter={StaticResource BoolToVisibility} }">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0"
+                          Margin="3"
+                          ItemsSource="{Binding ComboBoxFatherSecondNamesList}"
+                          SelectedItem="{Binding ComboBoxFatherSecondNamesSelectedItem}"/>
+                <ComboBox Grid.Column="1"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxFatherFirstNamesList}"
+                          SelectedItem="{Binding ComboBoxFatherFirstNamesSelectedItem}"/>
+                <ComboBox Grid.Column="2"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxFatherPatronymicsList}"
+                          SelectedItem="{Binding ComboBoxFatherPatronymicsSelectedItem}"/>
+            </Grid>
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding CheckBoxFatherIsChecking, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="  Аккаунт есть в базе?"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Мать (ФИО)"/>
+            <StackPanel Grid.Column="1"
+                        Visibility="{Binding Path=PanelMotherAccountIsNot, Converter={StaticResource BoolToVisibility} }">
+                <TextBox Text="{Binding Mother, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <Grid Grid.Column="1"
+                  Visibility="{Binding Path=PanelMotherAccountIs, Converter={StaticResource BoolToVisibility} }">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0"
+                          Margin="3"
+                          ItemsSource="{Binding ComboBoxMotherSecondNamesList}"
+                          SelectedItem="{Binding ComboBoxMotherSecondNamesSelectedItem}"/>
+                <ComboBox Grid.Column="1"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxMotherFirstNamesList}"
+                          SelectedItem="{Binding ComboBoxMotherFirstNamesSelectedItem}"/>
+                <ComboBox Grid.Column="2"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxMotherPatronymicsList}"
+                          SelectedItem="{Binding ComboBoxMotherPatronymicsSelectedItem}"/>
+            </Grid>
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding CheckBoxMotherIsChecking, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="  Аккаунт есть в базе?"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="{Binding Spouce}"/>
+            <StackPanel Grid.Column="1"
+                        Visibility="{Binding Path=PanelMotherAccountIsNot, Converter={StaticResource BoolToVisibility} }">
+                <TextBox Text="{Binding SpouseName, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <Grid Grid.Column="1"
+                  Visibility="{Binding Path=PanelMotherAccountIs, Converter={StaticResource BoolToVisibility} }">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0"
+                          Margin="3"
+                          ItemsSource="{Binding ComboBoxSpouseSecondNamesList}"
+                          SelectedItem="{Binding ComboBoxSpouseSecondNamesSelectedItem}"/>
+                <ComboBox Grid.Column="1"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxSpouseFirstNamesList}"
+                          SelectedItem="{Binding ComboBoxSpouseFirstNamesSelectedItem}"/>
+                <ComboBox Grid.Column="2"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxSpousePatronymicsList}"
+                          SelectedItem="{Binding ComboBoxSpousePatronymicsSelectedItem}"/>
+            </Grid>
+            <StackPanel Grid.Column="2"
+                        Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding CheckBoxSpouseIsChecking, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="  Аккаунт есть в базе?"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="227*"/>
+                <ColumnDefinition Width="74*"/>
+                <ColumnDefinition Width="149*"/>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="74*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Сыновья"/>
+            <StackPanel Grid.Column="1"
+                        Visibility="{Binding Path=PanelSonsAccountIsNot, Converter={StaticResource BoolToVisibility} }">
+                <TextBox Text="{Binding Sons, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <Grid Grid.Column="1"
+                  Visibility="{Binding Path=PanelSonsAccountIs, Converter={StaticResource BoolToVisibility} }">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0"
+                          Margin="3"
+                          ItemsSource="{Binding ComboBoxSonsSecondNamesList}"
+                          SelectedItem="{Binding ComboBoxSonsSecondNamesSelectedItem}"/>
+                <ComboBox Grid.Column="1"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxSonsFirstNamesList}"
+                          SelectedItem="{Binding ComboBoxSonsFirstNamesSelectedItem}"/>
+                <ComboBox Grid.Column="2"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxSonsPatronymicsList}"
+                          SelectedItem="{Binding ComboBoxSonsPatronymicsSelectedItem}"/>
+            </Grid>
+            <Button Grid.Column="2"
+                    Content="Добавить"
+                    Command="{Binding AddSonCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="3,3,0,3" Width="57"/>
+            <StackPanel Grid.Column="3"
+                        Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding CheckBoxSonsIsChecking, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Аккаунт есть в базе?"/>
+            </StackPanel>
+            <ComboBox Grid.Column="4"
+                      ItemsSource="{Binding CheckBoxSonsList}"
+                      SelectedItem="{Binding CheckBoxSonsSelectedItem}"
+                      Margin="3"/>
+            <Button Grid.Column="5"
+                    Content="Удалить"
+                    Command="{Binding DeleteSonFromComboBoxCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="3,3,0,3" Width="48"/>
+        </Grid>
+        <Grid Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="227*"/>
+                <ColumnDefinition Width="74*"/>
+                <ColumnDefinition Width="149*"/>
+                <ColumnDefinition Width="134*"/>
+                <ColumnDefinition Width="74*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Дочери"/>
+            <StackPanel Grid.Column="1"
+                        Visibility="{Binding Path=PanelSonsAccountIsNot, Converter={StaticResource BoolToVisibility} }">
+                <TextBox Text="{Binding Sons, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <Grid Grid.Column="1"
+                  Visibility="{Binding Path=PanelSonsAccountIs, Converter={StaticResource BoolToVisibility} }">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Grid.Column="0"
+                          Margin="3"
+                          ItemsSource="{Binding ComboBoxSonsSecondNamesList}"
+                          SelectedItem="{Binding ComboBoxSonsSecondNamesSelectedItem}"/>
+                <ComboBox Grid.Column="1"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxSonsFirstNamesList}"
+                          SelectedItem="{Binding ComboBoxSonsFirstNamesSelectedItem}"/>
+                <ComboBox Grid.Column="2"
+                           Margin="3"
+                          ItemsSource="{Binding ComboBoxSonsPatronymicsList}"
+                          SelectedItem="{Binding ComboBoxSonsPatronymicsSelectedItem}"/>
+            </Grid>
+            <Button Grid.Column="2"
+                    Content="Добавить"
+                    Command="{Binding AddSonCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="3,3,0,3" Width="57"/>
+            <StackPanel Grid.Column="3"
+                        Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding CheckBoxSonsIsChecking, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Аккаунт есть в базе?"/>
+            </StackPanel>
+            <ComboBox Grid.Column="4"
+                      ItemsSource="{Binding CheckBoxSonsList}"
+                      SelectedItem="{Binding CheckBoxSonsSelectedItem}"
+                      Margin="3"/>
+            <Button Grid.Column="5"
+                    Content="Удалить"
+                    Command="{Binding DeleteSonFromComboBoxCommand}"
+                    HorizontalAlignment="Left"
+                    Margin="3,3,0,3" Width="48"/>
+        </Grid>
+
+    </Grid>
+</Window>

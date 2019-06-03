@@ -22,7 +22,7 @@ namespace FamilyTree.ModelView
             Gender = person.Gender;
             Father = person.Father;
             Mother = person.Mother;
-            if (Gender == "Мужчина")
+            if (Gender == "Мужской")
             {
                 WifeOrHusband = "Жена: ";
                 Spouse = person.Wife;

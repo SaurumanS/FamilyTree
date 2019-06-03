@@ -7,9 +7,7 @@
         xmlns:bind="clr-namespace:FamilyTree.ModelView"
         mc:Ignorable="d"
         Title="Поиск" Height="373.375" Width="705.264">
-    <Window.Resources>
-        <bind:BindingProxy x:Key="proxy"/>
-    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -70,9 +68,7 @@
                   ColumnWidth="Auto"
                   ItemsSource="{Binding ReturnSearchingResult}"
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
-            <!--<DataGrid.Resources>
-                <bind:BindingProxy x:Key="proxy" Data="{Binding}" />
-            </DataGrid.Resources>-->
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding SecondName}">
                     <DataGridTextColumn.Header>
