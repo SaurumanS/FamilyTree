@@ -10,20 +10,21 @@ namespace ApplicationLogic.DataBaseTableInstances
 {
     public class Person: INotifyPropertyChanged //Класс, описывающий какого либо человека
     {
-        private string firstName;
-        private string secondName;
-        private string patronymic;
-        private string dateOfBirth;
-        private string dateOfDeath;
-        private string gender;
-        private string father;
-        private string mother;
-        private string wife;
-        private string husband;
-        private string sons;
-        private string dauthers;
-        private string description;
-        private string pathPhoto;
+        private string firstName="";
+        private string secondName="";
+        private string patronymic="";
+        private string family = "";
+        private string dateOfBirth = "";
+        private string dateOfDeath = "";
+        private string gender = "";
+        private string father = "";
+        private string mother = "";
+        private string wife = "";
+        private string husband = "";
+        private string sons = "";
+        private string dauthers = "";
+        private string description = "";
+        private string pathPhoto = "";
 
         public int Id { get; set; }
         public string FirstName
@@ -51,6 +52,15 @@ namespace ApplicationLogic.DataBaseTableInstances
             {
                 patronymic = value;
                 OnPropertyChanged("Patronymic");
+            }
+        }
+        public string Family
+        {
+            get { return family; }
+            set
+            {
+                family = value;
+                OnPropertyChanged("Family");
             }
         }
         public string DateOfBirth

@@ -89,10 +89,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ModelView\AddOrEditInfoAboutPersonWindowModelView.cs" />
+    <Compile Include="ModelView\Class1.cs" />
     <Compile Include="ModelView\FindPersonWindowModelView.cs" />
     <Compile Include="ModelView\PasswordWindowModelView.cs" />
     <Compile Include="ModelView\PersonWindowModelView.cs" />
     <Compile Include="ModelView\RelayCommand.cs" />
+    <Compile Include="ModelView\RichTextBoxHelper.cs" />
     <Compile Include="Windows\AddOrEditInfoAboutPersonWindow.xaml.cs">
       <DependentUpon>AddOrEditInfoAboutPersonWindow.xaml</DependentUpon>
     </Compile>
@@ -166,6 +168,9 @@
       <Project>{d6018d42-ded9-4f69-a4d3-e559b2cc54ac}</Project>
       <Name>ApplicationLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PhotoBase\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.110.0\build\net46\System.Data.SQLite.Core.targets')" />

@@ -102,11 +102,10 @@
                  SpellCheck.IsEnabled="True"
                  Language="ru-ru"
                  VerticalScrollBarVisibility="Auto"/>-->
-        <RichTextBox x:Name="_richTextBox" 
-                     Grid.Row="2"
-                     SpellCheck.IsEnabled="True"
-                     Language="ru-ru"
-                     IsReadOnly="True"/>
+        <toolkit:RichTextBox  x:Name="_richTextBox" 
+                              Grid.Row="2"
+                              Text="{Binding Description,UpdateSourceTrigger=PropertyChanged}"
+                              IsReadOnly="True"/>
 
     </Grid>
 </Window>

@@ -23,12 +23,22 @@ namespace FamilyTree.Windows
         public AddOrEditInfoAboutPersonWindow()
         {
             InitializeComponent();
-            DataContext = new ModelView.AddOrEditInfoAboutPersonWindowModelView();
+            ModelView.AddOrEditInfoAboutPersonWindowModelView modelView = new ModelView.AddOrEditInfoAboutPersonWindowModelView();
+            DataContext = modelView;
+            if (modelView.CloseAction == null)
+            {
+                modelView.CloseAction = new Action(this.Close); // Реализация закрытия окна 
+            }
         }
         public AddOrEditInfoAboutPersonWindow(Person person)
         {
             InitializeComponent();
-            DataContext = new ModelView.AddOrEditInfoAboutPersonWindowModelView(person);
+            ModelView.AddOrEditInfoAboutPersonWindowModelView modelView = new ModelView.AddOrEditInfoAboutPersonWindowModelView(person);
+            DataContext = modelView;
+            if (modelView.CloseAction == null)
+            {
+                modelView.CloseAction = new Action(this.Close); // Реализация закрытия окна 
+            }
         }
     }
 }

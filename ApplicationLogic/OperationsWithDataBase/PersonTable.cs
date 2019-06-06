@@ -53,6 +53,34 @@ namespace ApplicationLogic.OperationsWithDataBase
             return result;
 
         }
+        public void SaveNewPerson(Person newPerson)//Занести новый профиль в базу
+        {
+            dataBase.People.Add(newPerson);
+            dataBase.SaveChanges();
+        }
+        public List<string> ReturnAllSecondNamesInDataBase
+        {
+            get
+            {
+                List<string> result = dataBase.People.Select(x => x.SecondName).ToList();
+                return result;
+            }
+        }
+        public List<string> ReturnFirstNameMembersFamily(string secondName, bool isMan)//В зависимости от фамилии и пола вернёт все имена под этой фамилией
+        {
+            List<string> result;
+            if (isMan) result = dataBase.People.Where(x => x.SecondName == secondName && x.Gender == "Мужской").Select(x => x.FirstName).ToList();
+            else result = dataBase.People.Where(x => x.SecondName == secondName && x.Gender == "Женский").Select(x => x.FirstName).ToList();
+            return result;
+        }
+        public List<string> ReturnPatronymicsMembersFamily(string secondName,string firstName, bool isMan)//В зависимости от фамилии и пола вернёт все имена под этой фамилией
+        {
+            List<string> result;
+            if (isMan) result = dataBase.People.Where(x => x.SecondName == secondName && x.FirstName==firstName && x.Gender == "Мужской").Select(x => x.Patronymic).ToList();
+            else result = dataBase.People.Where(x => x.SecondName == secondName && x.FirstName == firstName && x.Gender == "Женский").Select(x => x.Patronymic).ToList();
+            return result;
+        }
+
 
     }
 }

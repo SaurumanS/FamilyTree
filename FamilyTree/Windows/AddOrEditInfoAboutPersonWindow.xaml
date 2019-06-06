@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FamilyTree.Windows"
+        xmlns:bind ="clr-namespace:FamilyTree.ModelView"
+        xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="{Binding Title}" Height="450" Width="800">
+        Title="{Binding Title}" Height="620.731" Width="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </Window.Resources>
@@ -21,6 +23,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition Height="8*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -29,8 +32,20 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <Menu>
+                <MenuItem Header="Профиль">
+                    <MenuItem Header="Сохранить и выйти"
+                              Command="{Binding SaveAndCloseWindowCommand}"/>
+                    <MenuItem Header="Сохранить и очистить"
+                              Command="{Binding SaveAndClearWindowCommand}"/>
+                    <Separator/>
+                    <MenuItem Header="Выход"
+                              Command="{Binding CloseWindowCommand}"/>
+                </MenuItem>
+            </Menu>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -47,9 +62,14 @@
                            Text="Отчество"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="3"
+                           Text="К какой семье относится?"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -63,6 +83,9 @@
                 <TextBox Grid.Column="2"
                          Text="{Binding Patronymic, UpdateSourceTrigger=PropertyChanged}"
                          Margin="5"/>
+                <ComboBox Grid.Column="3"
+                          ItemsSource="{Binding ReturnAllFamilyesInDataBase}"
+                          SelectedItem="{Binding Family}"/>
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
@@ -73,7 +96,7 @@
             <TextBlock Grid.Column="0" Text="Дата рождения"/>
             <DatePicker Grid.Column="1" 
                         IsDropDownOpen="False" 
-                        Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
                         SelectedDateFormat="Short"/>
         </Grid>
         <Grid Grid.Row="2">
@@ -84,8 +107,8 @@
             <TextBlock Grid.Column="0" Text="Дата смерти"/>
             <DatePicker Grid.Column="1" 
                         IsDropDownOpen="False" 
-                        Text="{Binding DateOfBirth, UpdateSourceTrigger=PropertyChanged}"
-                        SelectedDateFormat="Short"/>
+                        SelectedDateFormat="Short"
+                        SelectedDate="{Binding DateOfDeath, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -124,11 +147,13 @@
                 <ComboBox Grid.Column="1"
                            Margin="3"
                           ItemsSource="{Binding ComboBoxFatherFirstNamesList}"
-                          SelectedItem="{Binding ComboBoxFatherFirstNamesSelectedItem}"/>
+                          SelectedItem="{Binding ComboBoxFatherFirstNamesSelectedItem}"
+                          IsEnabled="{Binding ComboBoxFatherFirstNameIsEnable}"/>
                 <ComboBox Grid.Column="2"
                            Margin="3"
                           ItemsSource="{Binding ComboBoxFatherPatronymicsList}"
-                          SelectedItem="{Binding ComboBoxFatherPatronymicsSelectedItem}"/>
+                          SelectedItem="{Binding ComboBoxFatherPatronymicsSelectedItem}"
+                          IsEnabled="{Binding ComboBoxFatherPatronymicsIsEnable}"/>
             </Grid>
             <StackPanel Grid.Column="2"
                         Orientation="Horizontal">
@@ -161,11 +186,13 @@
                 <ComboBox Grid.Column="1"
                            Margin="3"
                           ItemsSource="{Binding ComboBoxMotherFirstNamesList}"
-                          SelectedItem="{Binding ComboBoxMotherFirstNamesSelectedItem}"/>
+                          SelectedItem="{Binding ComboBoxMotherFirstNamesSelectedItem}"
+                          IsEnabled="{Binding ComboBoxMotherFirstNameIsEnable}"/>
                 <ComboBox Grid.Column="2"
                            Margin="3"
                           ItemsSource="{Binding ComboBoxMotherPatronymicsList}"
-                          SelectedItem="{Binding ComboBoxMotherPatronymicsSelectedItem}"/>
+                          SelectedItem="{Binding ComboBoxMotherPatronymicsSelectedItem}"
+                          IsEnabled="{Binding ComboBoxMotherPatronymicsIsEnable}"/>
             </Grid>
             <StackPanel Grid.Column="2"
                         Orientation="Horizontal">
@@ -179,13 +206,13 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{Binding Spouce}"/>
+            <TextBlock Grid.Column="0" Text="{Binding Spouse}"/>
             <StackPanel Grid.Column="1"
-                        Visibility="{Binding Path=PanelMotherAccountIsNot, Converter={StaticResource BoolToVisibility} }">
+                        Visibility="{Binding Path=PanelSpouseAccountIsNot, Converter={StaticResource BoolToVisibility} }">
                 <TextBox Text="{Binding SpouseName, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <Grid Grid.Column="1"
-                  Visibility="{Binding Path=PanelMotherAccountIs, Converter={StaticResource BoolToVisibility} }">
+                  Visibility="{Binding Path=PanelSpouseAccountIs, Converter={StaticResource BoolToVisibility} }">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -198,11 +225,13 @@
                 <ComboBox Grid.Column="1"
                            Margin="3"
                           ItemsSource="{Binding ComboBoxSpouseFirstNamesList}"
-                          SelectedItem="{Binding ComboBoxSpouseFirstNamesSelectedItem}"/>
+                          SelectedItem="{Binding ComboBoxSpouseFirstNamesSelectedItem}"
+                          IsEnabled="{Binding ComboBoxSpouseFirstNameIsEnable}"/>
                 <ComboBox Grid.Column="2"
                            Margin="3"
                           ItemsSource="{Binding ComboBoxSpousePatronymicsList}"
-                          SelectedItem="{Binding ComboBoxSpousePatronymicsSelectedItem}"/>
+                          SelectedItem="{Binding ComboBoxSpousePatronymicsSelectedItem}"
+                          IsEnabled="{Binding ComboBoxSpousePatronymicsIsEnable}"/>
             </Grid>
             <StackPanel Grid.Column="2"
                         Orientation="Horizontal">
@@ -222,7 +251,7 @@
             <TextBlock Grid.Column="0" Text="Сыновья"/>
             <StackPanel Grid.Column="1"
                         Visibility="{Binding Path=PanelSonsAccountIsNot, Converter={StaticResource BoolToVisibility} }">
-                <TextBox Text="{Binding Sons, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Text="{Binding SonName, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <Grid Grid.Column="1"
                   Visibility="{Binding Path=PanelSonsAccountIs, Converter={StaticResource BoolToVisibility} }">
@@ -238,11 +267,13 @@
                 <ComboBox Grid.Column="1"
                            Margin="3"
                           ItemsSource="{Binding ComboBoxSonsFirstNamesList}"
-                          SelectedItem="{Binding ComboBoxSonsFirstNamesSelectedItem}"/>
+                          SelectedItem="{Binding ComboBoxSonsFirstNamesSelectedItem}"
+                          IsEnabled="{Binding ComboBoxSonsFirstNameIsEnable}"/>
                 <ComboBox Grid.Column="2"
                            Margin="3"
                           ItemsSource="{Binding ComboBoxSonsPatronymicsList}"
-                          SelectedItem="{Binding ComboBoxSonsPatronymicsSelectedItem}"/>
+                          SelectedItem="{Binding ComboBoxSonsPatronymicsSelectedItem}"
+                          IsEnabled="{Binding ComboBoxSonsPatronymicsIsEnable}"/>
             </Grid>
             <Button Grid.Column="2"
                     Content="Добавить"
@@ -261,6 +292,7 @@
             <Button Grid.Column="5"
                     Content="Удалить"
                     Command="{Binding DeleteSonFromComboBoxCommand}"
+                    IsEnabled="{Binding DeleteSonFromComboBoxButtonIsEnable}"
                     HorizontalAlignment="Left"
                     Margin="3,3,0,3" Width="48"/>
         </Grid>
@@ -275,11 +307,11 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Дочери"/>
             <StackPanel Grid.Column="1"
-                        Visibility="{Binding Path=PanelSonsAccountIsNot, Converter={StaticResource BoolToVisibility} }">
-                <TextBox Text="{Binding Sons, UpdateSourceTrigger=PropertyChanged}"/>
+                        Visibility="{Binding Path=PanelDauthersAccountIsNot, Converter={StaticResource BoolToVisibility} }">
+                <TextBox Text="{Binding DautherName, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <Grid Grid.Column="1"
-                  Visibility="{Binding Path=PanelSonsAccountIs, Converter={StaticResource BoolToVisibility} }">
+                  Visibility="{Binding Path=PanelDauthersAccountIs, Converter={StaticResource BoolToVisibility} }">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -287,37 +319,75 @@
                 </Grid.ColumnDefinitions>
                 <ComboBox Grid.Column="0"
                           Margin="3"
-                          ItemsSource="{Binding ComboBoxSonsSecondNamesList}"
-                          SelectedItem="{Binding ComboBoxSonsSecondNamesSelectedItem}"/>
+                          ItemsSource="{Binding ComboBoxDauthersSecondNamesList}"
+                          SelectedItem="{Binding ComboBoxDauthersSecondNamesSelectedItem}"/>
                 <ComboBox Grid.Column="1"
                            Margin="3"
-                          ItemsSource="{Binding ComboBoxSonsFirstNamesList}"
-                          SelectedItem="{Binding ComboBoxSonsFirstNamesSelectedItem}"/>
+                          ItemsSource="{Binding ComboBoxDauthersFirstNamesList}"
+                          SelectedItem="{Binding ComboBoxDauthersFirstNamesSelectedItem}"
+                          IsEnabled="{Binding ComboBoxDauthersFirstNameIsEnable}"/>
                 <ComboBox Grid.Column="2"
                            Margin="3"
-                          ItemsSource="{Binding ComboBoxSonsPatronymicsList}"
-                          SelectedItem="{Binding ComboBoxSonsPatronymicsSelectedItem}"/>
+                          ItemsSource="{Binding ComboBoxDauthersPatronymicsList}"
+                          SelectedItem="{Binding ComboBoxDauthersPatronymicsSelectedItem}"
+                          IsEnabled="{Binding ComboBoxDauthersPatronymicsIsEnable}"/>
             </Grid>
             <Button Grid.Column="2"
                     Content="Добавить"
-                    Command="{Binding AddSonCommand}"
+                    Command="{Binding AddDautherCommand}"
                     HorizontalAlignment="Left"
                     Margin="3,3,0,3" Width="57"/>
             <StackPanel Grid.Column="3"
                         Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding CheckBoxSonsIsChecking, UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox IsChecked="{Binding CheckBoxDauthersIsChecking, UpdateSourceTrigger=PropertyChanged}"/>
                 <TextBlock Text="Аккаунт есть в базе?"/>
             </StackPanel>
             <ComboBox Grid.Column="4"
-                      ItemsSource="{Binding CheckBoxSonsList}"
-                      SelectedItem="{Binding CheckBoxSonsSelectedItem}"
+                      ItemsSource="{Binding CheckBoxDauthersList}"
+                      SelectedItem="{Binding CheckBoxDauthersSelectedItem}"
                       Margin="3"/>
             <Button Grid.Column="5"
                     Content="Удалить"
-                    Command="{Binding DeleteSonFromComboBoxCommand}"
+                    Command="{Binding DeleteDautherFromComboBoxCommand}"
+                    IsEnabled="{Binding DeleteDautherFromComboBoxButtonIsEnable}"
                     HorizontalAlignment="Left"
                     Margin="3,3,0,3" Width="48"/>
         </Grid>
-
+        <Grid Grid.Row="9">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="67*" />
+                <ColumnDefinition Width="197*"/>
+                <ColumnDefinition Width="132*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Фото профиля"/>
+            <Button Grid.Column="2"
+                    Content="Обзор"
+                    Command="{Binding AddMainPhotoPathCommand}"/>
+            <TextBox Grid.Column="1"
+                     Text="{Binding PathPhoto}"/>
+        </Grid>
+        <Grid Grid.Row="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="67*" />
+                <ColumnDefinition Width="329*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Text="Описание"/>
+            <toolkit:RichTextBox Grid.Column="1"
+                                 Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+                                 SpellCheck.IsEnabled="True"
+                                 Language="ru-ru"/>
+        </Grid>
+        <Grid Grid.Row="11">
+            <Button Content="Сохранить и выйти"
+                    Command="{Binding SaveAndCloseWindowCommand}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,8,0"/>
+            <Button Content="Сохранить и очистить"
+                    Command="{Binding SaveAndClearWindowCommand}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,150,0"/>
+        </Grid>
     </Grid>
 </Window>

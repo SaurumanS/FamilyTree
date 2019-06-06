@@ -18,11 +18,11 @@ namespace ApplicationLogic.OperationsWithDataBase
             dataBase = new ApplicationContexts.ApplicationContext();
             dataBase.Families.Load();
         }
-        public IEnumerable<Family> RerurnListFamilyes//Возврат списка семей
+        public ObservableCollection<Family> RerurnListFamilyes//Возврат списка семей
         {
             get
             {
-                var RerurnListFamilyes = dataBase.Families.Local.ToBindingList();
+                var RerurnListFamilyes = dataBase.Families.Local;
                 return RerurnListFamilyes;
             }
         }

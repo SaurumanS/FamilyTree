@@ -28,11 +28,7 @@ namespace FamilyTree.Windows
             personTable = new ApplicationLogic.OperationsWithDataBase.PersonTable();
             ModelView.PersonWindowModelView modelView = new ModelView.PersonWindowModelView(person,isAdministrator);
             DataContext = modelView;
-            FlowDocument myFlowDoc = new FlowDocument();
-            // Add paragraphs to the FlowDocument.
-            myFlowDoc.Blocks.Add(new Paragraph(new Run(person.Description)));
-            _richTextBox.Document = myFlowDoc;
-            var test = new TextRange(myFlowDoc.ContentStart, myFlowDoc.ContentEnd).Text;
+            
             textBoxMother.Text = person.Mother;
             textBoxFather.Text = person.Father;
             textBoxSpouse.Text = person.Gender == "Мужчина" ? person.Wife : person.Husband;
